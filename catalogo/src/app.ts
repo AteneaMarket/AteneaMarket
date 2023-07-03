@@ -3,8 +3,11 @@
  * @author Diego Fernando Barreto <oclusiva9204@gmail.com>
  */
 import express, {Application, Request, Response, NextFunction} from 'express';
+import passport from 'passport';
 
 import catalogoRoutes from './routes/catalogoRoutes';
+import rutas_auth from './routes/authRoutes';
+import miEstrategia from './config/passport';
 
 import dotenv from 'dotenv'
 import cors from 'cors';
@@ -15,6 +18,8 @@ import { swaggerSpec } from './swagger.conf';
 dotenv.config()
 
 const app:Application = express();
+
+app.use('/auth', rutas_auth);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // ALERTA: Para toda petición 
@@ -28,8 +33,10 @@ app.use(express.json())
  * 
  * Agregar al stack un conjunto de rutas
  */
+passport.use(miEstrategia)
+app.use(passport.initialize())
 
-app.use('/', catalogoRoutes)
+app.use('/',passport.authenticate('jwt', {session:false}), catalogoRoutes)
 app.use('/category', categoryRoutes)
 /**
  * Respuesta cuando la ruta no existe
