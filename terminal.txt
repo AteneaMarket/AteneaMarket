@@ -1,0 +1,15 @@
+npx prisma migrate dev = migrar las tablas
+
+https://docs.google.com/presentation/d/1k-O8pH38siBPLhz9Z2USFWhbBWjw0tdCVEaS9Z3Rg-M/edit?usp=sharing = swagger
+
+https://docs.google.com/spreadsheets/d/1lAqhJkPlWeVLuTENTeuUpBsFfMyBlY2A/edit?pli=1#gid=679266863 = videos
+
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers = encabezados del cliente hacia el servidor
+
+
+netstat -ano | findstr :3001
+taskkill /PID <PID> /F
+TCP    0.0.0.0:3001    0.0.0.0:0    LISTENING    12345
+taskkill /PID 12345 /F
+
+

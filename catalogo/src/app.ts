@@ -1,20 +1,36 @@
 /**
- * Archivo principal del programa 
+ * Archivo principal del microservicio de catalogo
+ * @author Diego Fernando Barreto <oclusiva9204@gmail.com>
  */
 import express, {Application, Request, Response, NextFunction} from 'express';
 
-import cartRoutes from './routes/cartRoutes'
+import catalogoRoutes from './routes/catalogoRoutes';
+
+import dotenv from 'dotenv'
+import cors from 'cors';
+import categoryRoutes from './routes/categoryRoutes';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './swagger.conf';
+
+dotenv.config()
 
 const app:Application = express();
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// ALERTA: Para toda petición 
+// Deberia limitar los origines con los que puede establecer relaciones de confianza
+app.use(cors());
+
 app.use(express.json())
+
 
 /**
  * 
  * Agregar al stack un conjunto de rutas
  */
 
-app.use('/', cartRoutes)
+app.use('/', catalogoRoutes)
+app.use('/category', categoryRoutes)
 /**
  * Respuesta cuando la ruta no existe
  * http status code

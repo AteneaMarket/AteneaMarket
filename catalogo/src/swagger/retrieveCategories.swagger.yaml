@@ -1,0 +1,32 @@
+paths:
+  /category/{totalItems}:
+    get:
+      summary: Obtener un listado de categorias
+      description: Ruta para obtener un listado de categorias
+      parameters:  
+        - name: totalItems
+          in: path
+          required: true
+          description: Total de categorias que se deben retornar
+          schema:
+            type:integer
+      responses:
+        '200':
+          description: Todo correcto. Se retorna el listado como un JSON
+          content:
+            application/json:
+              schema:
+                type: array
+        '400':
+          description: Error. se retorna la descripción del error
+          content:
+            application/json:
+              schema:
+              $ref: #/components/schemas/ErrorResponse
+components:
+ schemas:
+  ErrorResponse:
+    type: object
+    properties:
+      error:
+        type: string
